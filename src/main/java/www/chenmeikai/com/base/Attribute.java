@@ -3,26 +3,34 @@
  * @Package: www.chenmeikai.com.model   
  * @date: 2018年2月24日 下午5:44:51 
  */
-package www.chenmeikai.com.model;
+package www.chenmeikai.com.base;
 
 /**    
- * @Description:TODO 
+ * @Description:实体类 属性 
  * @author: cmk
  * @date:   2018年2月24日 下午5:44:51      
  */
 public class Attribute {
 	
+	//属性名
 	private String name ;
-	
+	//属性类型
 	private String type;
-	
+	//注释
+	private String remark;
 	
 	
 
-	public Attribute(String name, String type) {
+	/**
+	 * @param name
+	 * @param type
+	 * @param remark
+	 */
+	public Attribute(String name, String type, String remark) {
 		super();
 		this.name = name;
 		this.type = type;
+		this.remark = remark;
 	}
 
 	public String getName() {
@@ -39,6 +47,14 @@ public class Attribute {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 	
