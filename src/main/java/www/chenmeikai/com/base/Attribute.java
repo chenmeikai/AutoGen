@@ -19,19 +19,9 @@ public class Attribute {
 	//注释
 	private String remark;
 	
+	private String gName;
 	
-
-	/**
-	 * @param name
-	 * @param type
-	 * @param remark
-	 */
-	public Attribute(String name, String type, String remark) {
-		super();
-		this.name = name;
-		this.type = type;
-		this.remark = remark;
-	}
+	private String sName;
 
 	public String getName() {
 		return name;
@@ -56,7 +46,40 @@ public class Attribute {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
-	
 
+	public String getgName() {
+		return gName;
+	}
+
+	public void setgName(String gName) {
+		this.gName = gName;
+	}
+
+	public String getsName() {
+		return sName;
+	}
+
+	public void setsName(String sName) {
+		this.sName = sName;
+	}
+
+	/**
+	 * @param name
+	 * @param type
+	 * @param remark
+	 * @param gName
+	 * @param sName
+	 */
+	public Attribute(String name, String type, String remark, String gName, String sName) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.remark = remark;
+		this.gName = gName;
+		this.sName = sName;
+	}
+	
+	
+	
+	
 }

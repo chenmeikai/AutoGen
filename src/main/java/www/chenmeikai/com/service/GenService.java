@@ -21,14 +21,16 @@ public interface GenService {
 	//生成所有实体类
 	public void genModels(Connection conn);
 	//生成mapper
-	public Integer genMappers(Connection conn);
+	public void genMappers(Connection conn);
+	//生成mapper基类
+	public void genBaseMappers();
 	//生成mapper映射文件
-	public Integer genMappersXml(Connection conn);
+	public void genMappersXml(Connection conn);
 	//生成service
-	public Integer genService(Connection conn);
+	public void genService(Connection conn);
 	//生成conntroller
-	public Integer genController(Connection conn);
+	public void genController(Connection conn);
 	//关闭连接
-	public Integer disConnect(Connection conn);
+	public void disConnect(Connection conn);
 
 }

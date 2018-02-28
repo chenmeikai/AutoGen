@@ -56,7 +56,6 @@ public class GenServiceImpl implements GenService {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return conn;
@@ -84,7 +83,8 @@ public class GenServiceImpl implements GenService {
 				 * 表名转换为实体类名
 				 */
 				String tName=tabletSets.getString("TABLE_NAME");
-				String modelName =StringUtil.convertTableTName(tName);
+				String middleName =StringUtil.convertTableTName(tName);
+				String modelName =StringUtil.convertUpperName(middleName);
 				entity.setName(modelName);
 				/**
 				 * 字段转换为属性
@@ -92,7 +92,6 @@ public class GenServiceImpl implements GenService {
 				ResultSet rs =dbmd.getColumns(null, getSchema(conn),tName, "%");
 				List<Attribute> attributes =new ArrayList<>();
 				while(rs.next()){  
-                    //System.out.println("字段名："+rs.getString("COLUMN_NAME")+"--字段注释："+rs.getString("REMARKS")+"--字段数据类型："+rs.getString("TYPE_NAME"));  
                     //属性名
 					String columnName = rs.getString("COLUMN_NAME");  
                     String name =StringUtil.convertAttributeName(columnName);
@@ -103,8 +102,13 @@ public class GenServiceImpl implements GenService {
                     String remarks = rs.getString("REMARKS");  
                     if(remarks == null || remarks.equals("")){  
                         remarks = columnName;  
-                    }  
-                    Attribute attribute =new Attribute(name, type,remarks); 
+                    }
+                    //getName
+                    String gName =StringUtil.convertUpperName(name);
+                    //setName
+                    String sName =StringUtil.convertUpperName(name);
+                    
+                    Attribute attribute =new Attribute(name, type,remarks,gName,sName); 
                     attributes.add(attribute);
                 } 
 				//设置属性集合
@@ -114,14 +118,14 @@ public class GenServiceImpl implements GenService {
 				//装入表信息
 				map.put("entity", entity);
 				//装入package路径
-				String packagePath =ProUtils.getProperty("gen.entity.package.path");
+				String packagePath =ProUtils.getProperty("gen.model.package.path");
 				map.put("packagePath", packagePath);
 				//模板文件
 				String ftlName="entity.ftl";
 				/**
 				 * 生成文件路径
 				 */
-				String basePath =Thread.currentThread().getContextClassLoader().getResource("").getPath().substring(1)+ProUtils.getProperty("gen.entity.target.path");
+				String basePath =Thread.currentThread().getContextClassLoader().getResource("").getPath().substring(1)+ProUtils.getProperty("gen.model.target.path");
 				File filePath =new File(basePath);
 				if(!filePath.exists()) {
 					filePath.mkdirs();
@@ -136,37 +140,93 @@ public class GenServiceImpl implements GenService {
 	
 	//生成mapper
 	@Override
-	public Integer genMappers(Connection con) {
-		// TODO Auto-generated method stub
-		return null;
+	public void genMappers(Connection conn) {
+		
+		DatabaseMetaData dbmd = null;
+		try {
+			//获得元数据
+			dbmd = conn.getMetaData();
+			//获得表结果集
+			ResultSet tabletSets = dbmd.getTables(null, "%", null, new String[] { "TABLE" });
+			//遍历
+			while(tabletSets.next()) {
+				
+				Map<String,Object> map =new HashMap<>();
+				
+				/**
+				 * mapper名
+				 */
+				String tName=tabletSets.getString("TABLE_NAME");
+				String middleName =StringUtil.convertTableTName(tName);
+				String mapperName =StringUtil.convertUpperName(middleName);
+				//装入mapper名
+				map.put("mapperName", mapperName);
+				String packagePath =ProUtils.getProperty("gen.mapper.package.path");
+				//装入package路径
+				map.put("packagePath", packagePath);
+				//装入model package路径
+				String modelPackagePath =ProUtils.getProperty("gen.model.package.path");
+				map.put("modelPackagePath", modelPackagePath);
+				//模板文件
+				String ftlName="mapper.ftl";
+				/**
+				 * 生成文件路径
+				 */
+				String basePath =Thread.currentThread().getContextClassLoader().getResource("").getPath().substring(1)+ProUtils.getProperty("gen.mapper.target.path");
+				File filePath =new File(basePath);
+				if(!filePath.exists()) {
+					filePath.mkdirs();
+				}
+				String targetPath =basePath+mapperName+"Mapper.java";
+				create(map,ftlName,targetPath);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
+	
+	//生成mapper基类
+	@Override
+	public void genBaseMappers() {
+		
+		String packagePath =ProUtils.getProperty("gen.mapper.package.path");
+		Map<String,Object> map =new HashMap<>();
+		map.put("packagePath", packagePath);
+		//模板文件
+		String ftlName="baseMapper.ftl";
+		/**
+		 * 生成文件路径
+		 */
+		String basePath =Thread.currentThread().getContextClassLoader().getResource("").getPath().substring(1)+ProUtils.getProperty("gen.mapper.target.path");
+		File filePath =new File(basePath);
+		if(!filePath.exists()) {
+			filePath.mkdirs();
+		}
+		String targetPath =basePath+"BaseMapper.java";
+		create(map,ftlName,targetPath);
+	}
+
+
 	//生成mapper映射文件
 	@Override
-	public Integer genMappersXml(Connection con) {
-		// TODO Auto-generated method stub
-		return null;
+	public void genMappersXml(Connection conn) {
 	}
 	
 	//生成service
 	@Override
-	public Integer genService(Connection con) {
-		// TODO Auto-generated method stub
-		return null;
+	public void genService(Connection conn) {
 	}
     
 	//生成controller
 	@Override
-	public Integer genController(Connection con) {
-		// TODO Auto-generated method stub
-		return null;
+	public void genController(Connection conn) {
 	}
 	
 	//关闭连接
 	@Override
-	public Integer disConnect(Connection connect) {
-		// TODO Auto-generated method stub
-		return null;
+	public void disConnect(Connection connect) {
 	}
 	
 	//其他数据库不需要这个方法 oracle和db2需要  

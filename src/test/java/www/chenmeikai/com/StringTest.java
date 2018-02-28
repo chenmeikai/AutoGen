@@ -26,5 +26,16 @@ public class StringTest {
 		System.out.println(cutString);
 		}
 	}
+	
+	@Test
+	public void test2() {
+		
+		String text ="hello";
+		String sub =text.substring(0,1);
+		String end =text.substring(1);
+		System.out.println(sub);
+		System.out.println(end);
+		
+	}
 
 }

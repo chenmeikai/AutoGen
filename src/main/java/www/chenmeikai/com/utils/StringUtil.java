@@ -116,6 +116,20 @@ public class StringUtil {
         return propName;
     }
     
+    
+    /**
+     * 首字母大写
+     * @param name
+     * @return
+     */
+    public static String convertUpperName(String name) {
+    	String prefix=  name.substring(0,1);
+    	String suffix=name.substring(1);
+    	String text =prefix.toUpperCase()+suffix;
+    	return text;
+    }
+    
+    
     /**
      * TODO 数据库类型转换java类型
      * @param dbType

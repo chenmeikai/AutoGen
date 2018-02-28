@@ -31,7 +31,13 @@ public class GenMain {
 		
 		GenService genService =new GenServiceImpl();
 		Connection conn =genService.getConnect(driver, url, userName, password);
+		//实体类
 		genService.genModels(conn);
+		//mapper基类
+		genService.genBaseMappers();
+		//mapper
+		genService.genMappers(conn);
+		
 
 	}
 

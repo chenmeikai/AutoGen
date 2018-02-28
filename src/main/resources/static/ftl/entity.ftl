@@ -15,11 +15,13 @@ public class ${entity.name} implements Serializable {
     //${attribute.remark}
     private ${attribute.type} ${attribute.name};
     </#list>
+    
+    
     <#list entity.attributes as attribute>
-    public ${attribute.type} get${attribute.name}(){
+    public ${attribute.type} get${attribute.gName}(){
         return ${attribute.name};
     }
-    public void set${attribute.name} (${attribute.type} ${attribute.name}s){
+    public void set${attribute.sName} (${attribute.type} ${attribute.name}){
         this.${attribute.name} = ${attribute.name};
     }
     </#list>
