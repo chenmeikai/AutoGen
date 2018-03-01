@@ -37,8 +37,8 @@ public class GenMain {
 		genService.genBaseMappers();
 		//mapper
 		genService.genMappers(conn);
-		
-
+		//xml
+		genService.genMappersXml(conn);
 	}
 
 }

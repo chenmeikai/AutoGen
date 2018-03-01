@@ -16,6 +16,10 @@ public class Attribute {
 	private String name ;
 	//属性类型
 	private String type;
+	//字段名
+	private String column;
+	//字段类型
+	private String dbType;
 	//注释
 	private String remark;
 	
@@ -62,6 +66,23 @@ public class Attribute {
 	public void setsName(String sName) {
 		this.sName = sName;
 	}
+	
+
+	public String getColumn() {
+		return column;
+	}
+
+	public void setColumn(String column) {
+		this.column = column;
+	}
+
+	public String getDbType() {
+		return dbType;
+	}
+
+	public void setDbType(String dbType) {
+		this.dbType = dbType;
+	}
 
 	/**
 	 * @param name
@@ -74,6 +95,27 @@ public class Attribute {
 		super();
 		this.name = name;
 		this.type = type;
+		this.remark = remark;
+		this.gName = gName;
+		this.sName = sName;
+	}
+
+	/**
+	 * @param name
+	 * @param type
+	 * @param column
+	 * @param dbType
+	 * @param remark
+	 * @param gName
+	 * @param sName
+	 */
+	public Attribute(String name, String type, String column, String dbType, String remark, String gName,
+			String sName) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.column = column;
+		this.dbType = dbType;
 		this.remark = remark;
 		this.gName = gName;
 		this.sName = sName;
