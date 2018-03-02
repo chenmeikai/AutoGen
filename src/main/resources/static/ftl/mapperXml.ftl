@@ -29,7 +29,7 @@
   </sql>
   
   <select id="selectById" resultMap="BaseResultMap">
-    select <include refid="sql_columns" /> from ${entity.table} where ${entity.attributes[1].column} = ${"#{"+entity.attributes[1].name+"}"}
+    select <include refid="sql_columns" /> from ${entity.table} where ${entity.attributes[0].column} = ${"#{"+entity.attributes[0].name+"}"}
   </select>
   
   <select id="selectOne" resultMap="BaseResultMap">
@@ -47,7 +47,7 @@
   <sql id="sql_save_columns">
     insert into ${entity.table}(
       <#list entity.attributes as attribute>
-      <#if attribute_index>0>
+      <#if attribute_index!=0>
       <if test="null != ${attribute.name}">${attribute.column}</if>
       </#if>
       </#list>
@@ -57,14 +57,14 @@
   <sql id="sql_save_values">
     (
   <#list entity.attributes as attribute>
-    <#if attribute_index>0>
+    <#if attribute_index != 0>
      <if test="null != ${attribute.name}"> ${"#{"+attribute.name+"}"}</if>
     </#if>
   </#list>
 	)
   </sql>
   
-  <insert id="save" keyProperty="${entity.attributes[1].column}" useGeneratedKeys="true">
+  <insert id="save" keyProperty="${entity.attributes[0].column}" useGeneratedKeys="true">
     <include refid="sql_save_columns" /><include refid="sql_save_values" />
   </insert>
   
@@ -75,13 +75,13 @@
   </insert>
   
   <sql id="sql_update">
-    update ${entity.table} set ${entity.attributes[1].column} = ${"#{"+entity.attributes[1].name+"}"}
+    update ${entity.table} set ${entity.attributes[0].column} = ${"#{"+entity.attributes[0].name+"}"}
     <#list entity.attributes as attribute>
-    <#if attribute_index>0>
+    <#if attribute_index !=0>
      <if test="null != ${attribute.name}">, ${attribute.column} = ${"#{"+attribute.name+"}"}</if>
     </#if>
    </#list>
-	where ${entity.attributes[1].column} = ${"#{"+entity.attributes[1].name+"}"}
+	where ${entity.attributes[0].column} = ${"#{"+entity.attributes[0].name+"}"}
   </sql>
   
   <update id="update">
@@ -95,13 +95,13 @@
   </update>
   
   <delete id="delArray">
-    delete from ${entity.table} where ${entity.attributes[1].column} in
-	<foreach collection="array" index="index" item="item" open="(" separator="," close=")">#{item}</foreach>
+    delete from ${entity.table} where ${entity.attributes[0].column} in
+	<foreach collection="array" index="index" item="item" open="(" separator="," close=")">${"#"+"{item}"}</foreach>
   </delete>
   
   <delete id="delList">
-    delete from ${entity.table} where ${entity.attributes[1].column} in
-	<foreach collection="list" index="index" item="item" open="(" separator="," close=")">#{item}</foreach>
+    delete from ${entity.table} where ${entity.attributes[0].column} in
+	<foreach collection="list" index="index" item="item" open="(" separator="," close=")">${"#"+"{item}"}</foreach>
   </delete>
   
 </mapper>

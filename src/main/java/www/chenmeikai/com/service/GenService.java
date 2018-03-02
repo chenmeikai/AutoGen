@@ -28,6 +28,12 @@ public interface GenService {
 	public void genMappersXml(Connection conn);
 	//生成service
 	public void genService(Connection conn);
+	//生成service基类
+	public void genBaseService(Connection conn);
+	//生成serviceImpl
+	public void genServiceImpl(Connection conn);
+	//生成serviceImpl基类
+	public void genBaseServiceImpl(Connection conn);
 	//生成conntroller
 	public void genController(Connection conn);
 	//关闭连接

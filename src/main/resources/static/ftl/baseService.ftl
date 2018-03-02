@@ -1,19 +1,12 @@
 
-package ${packagePath};
+package ${servicePackagePath};
 
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 
- * @ClassName:  BaseMapper   
- * @Description:mapper基类 
- * @param <T> 
- */
- 
-public interface BaseMapper<T>  {
-    
-	/**
+public interface BaseService<T> {
+
+    /**
 	 * 通过ID查询
 	 * @param id
 	 * @return
@@ -34,7 +27,6 @@ public interface BaseMapper<T>  {
 	 */
 	List<?> selectList(Object obj);
 	
-
 	/**
 	 * 通用的保存方法
 	 * @param <T>
@@ -88,5 +80,5 @@ public interface BaseMapper<T>  {
 	 * @return 总记录条数
 	 */
 	int count(Object obj);
-
+	
 }
