@@ -4,7 +4,7 @@
  * @author: Administrator   
  * @date: 2018年2月25日 下午10:52:50 
  */
-package www.chenmeikai.com.config;
+package www.chenmeikai.com;
 
 import java.sql.Connection;
 
@@ -43,6 +43,16 @@ public class GenMain {
 		genService.genService(conn);
 		// baseService
 		genService.genBaseService(conn);
+		//serviceImpl
+		genService.genServiceImpl(conn);
+		//baseServiceImpl
+		genService.genBaseServiceImpl(conn);
+		//controller
+		genService.genController(conn);
+		//关闭连接
+		genService.disConnect(conn);
+		
+		System.out.println("生成成功");
 	}
 
 }

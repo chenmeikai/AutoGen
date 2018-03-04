@@ -3,7 +3,7 @@
  * @Package: www.chenmeikai.com.model   
  * @date: 2018年2月24日 下午5:44:51 
  */
-package www.chenmeikai.com.base;
+package www.chenmeikai.com.Attribute;
 
 /**    
  * @Description:实体类 属性 

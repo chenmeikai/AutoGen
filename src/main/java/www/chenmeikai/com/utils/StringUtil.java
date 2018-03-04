@@ -129,6 +129,18 @@ public class StringUtil {
     	return text;
     }
     
+    /**
+     * 首字母小写
+     * @param name
+     * @return
+     */
+    public static String convertLowerName(String name) {
+    	String prefix=  name.substring(0,1);
+    	String suffix=name.substring(1);
+    	String text =prefix.toLowerCase()+suffix;
+    	return text;
+    }
+    
     
     /**
      * TODO 数据库类型转换java类型

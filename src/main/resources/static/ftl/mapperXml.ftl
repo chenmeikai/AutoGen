@@ -8,7 +8,9 @@
       <#if attribute_index=0>
         <id column="${attribute.column}" jdbcType="${attribute.dbType}" property="${attribute.name}" />
       </#if>
-      <result column="${attribute.column}" jdbcType="${attribute.dbType}" property="${attribute.name}" />
+      <#if attribute_index !=0>
+        <result column="${attribute.column}" jdbcType="${attribute.dbType}" property="${attribute.name}" />
+      </#if>
     </#list>
   </resultMap>
   

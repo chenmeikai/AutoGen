@@ -4,7 +4,7 @@
  * @author: Administrator   
  * @date: 2018年2月25日 下午2:45:39 
  */
-package www.chenmeikai.com.base;
+package www.chenmeikai.com.Attribute;
 
 import java.util.List;
 

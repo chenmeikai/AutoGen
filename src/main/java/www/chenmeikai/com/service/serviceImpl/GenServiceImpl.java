@@ -27,8 +27,8 @@ import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
-import www.chenmeikai.com.base.Attribute;
-import www.chenmeikai.com.base.Entity;
+import www.chenmeikai.com.Attribute.Attribute;
+import www.chenmeikai.com.Attribute.Entity;
 import www.chenmeikai.com.service.GenService;
 import www.chenmeikai.com.utils.ProUtils;
 import www.chenmeikai.com.utils.StringUtil;
@@ -360,22 +360,153 @@ public class GenServiceImpl implements GenService {
 	// serviceImpl生成
 	@Override
 	public void genServiceImpl(Connection conn) {
+		
+		DatabaseMetaData dbmd = null;
+		try {
+			// 获得元数据
+			dbmd = conn.getMetaData();
+			// 获得表结果集
+			ResultSet tabletSets = dbmd.getTables(null, "%", null, new String[] { "TABLE" });
+			// 遍历
+			while (tabletSets.next()) {
+
+				Map<String, Object> map = new HashMap<>();
+
+				/**
+				 * serviceImpl名
+				 */
+				String tName = tabletSets.getString("TABLE_NAME");
+				String middleName = StringUtil.convertTableTName(tName);
+				String serviceImplName = StringUtil.convertUpperName(middleName);
+				
+				//装入middleName
+				map.put("middleName", middleName);
+				// 装入serviceImpl名
+				map.put("serviceImplName", serviceImplName);
+				// 装入servicePackage路径
+				String servicePackagePath = ProUtils.getProperty("gen.service.package.path");
+				map.put("servicePackagePath", servicePackagePath);
+				// 装入serviceImplpackage路径
+				String serviceImplPackagePath = ProUtils.getProperty("gen.serviceImpl.package.path");
+				map.put("serviceImplPackagePath", serviceImplPackagePath);
+				// 装入model package路径
+				String modelPackagePath = ProUtils.getProperty("gen.model.package.path");
+				map.put("modelPackagePath", modelPackagePath);
+				// 装入mapper package路径
+				String mapperPackagePath = ProUtils.getProperty("gen.mapper.package.path");
+				map.put("mapperPackagePath", mapperPackagePath);
+				// 模板文件
+				String ftlName = "serviceImpl.ftl";
+				/**
+				 * 生成文件路径
+				 */
+				String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath().substring(1)
+						+ ProUtils.getProperty("gen.serviceImpl.target.path");
+				File filePath = new File(basePath);
+				if (!filePath.exists()) {
+					filePath.mkdirs();
+				}
+				String targetPath = basePath + serviceImplName + "ServiceImpl.java";
+				create(map, ftlName, targetPath);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
 
 	}
 
 	// serviceImpl基类生成
 	@Override
 	public void genBaseServiceImpl(Connection conn) {
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		String servicePackagePath = ProUtils.getProperty("gen.service.package.path");
+		map.put("servicePackagePath", servicePackagePath);
+		String serviceImplPackagePath = ProUtils.getProperty("gen.serviceImpl.package.path");
+		map.put("serviceImplPackagePath", serviceImplPackagePath);
+		String mapperPackagePath = ProUtils.getProperty("gen.mapper.package.path");
+		map.put("mapperPackagePath", mapperPackagePath);
+		// 模板文件
+		String ftlName = "baseServiceImpl.ftl";
+		/**
+		 * 生成文件路径
+		 */
+		String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath().substring(1)
+				+ ProUtils.getProperty("gen.serviceImpl.target.path");
+		File filePath = new File(basePath);
+		if (!filePath.exists()) {
+			filePath.mkdirs();
+		}
+		String targetPath = basePath + "BaseServiceImpl.java";
+		create(map, ftlName, targetPath);
 	}
 
 	// 生成controller
 	@Override
 	public void genController(Connection conn) {
+		DatabaseMetaData dbmd = null;
+		try {
+			// 获得元数据
+			dbmd = conn.getMetaData();
+			// 获得表结果集
+			ResultSet tabletSets = dbmd.getTables(null, "%", null, new String[] { "TABLE" });
+			// 遍历
+			while (tabletSets.next()) {
+
+				Map<String, Object> map = new HashMap<>();
+
+				/**
+				 * controller名
+				 */
+				String tName = tabletSets.getString("TABLE_NAME");
+				String middleName = StringUtil.convertTableTName(tName);
+				String controllerName = StringUtil.convertUpperName(middleName);
+				
+				//装入小写开头controller名
+				map.put("middleName", middleName);
+				// 装入controllerName名
+				map.put("controllerName", controllerName);
+				// 装入controller路径
+				String controllerPackagePath = ProUtils.getProperty("gen.controller.package.path");
+				map.put("controllerPackagePath", controllerPackagePath);
+				// 装入service package路径
+				String servicePackagePath = ProUtils.getProperty("gen.service.package.path");
+				map.put("servicePackagePath", servicePackagePath);
+				// 模板文件
+				String ftlName = "controller.ftl";
+				/**
+				 * 生成文件路径
+				 */
+				String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath().substring(1)
+						+ ProUtils.getProperty("gen.controller.target.path");
+				File filePath = new File(basePath);
+				if (!filePath.exists()) {
+					filePath.mkdirs();
+				}
+				String targetPath = basePath + controllerName + "Controller.java";
+				create(map, ftlName, targetPath);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
 	}
 
 	// 关闭连接
 	@Override
 	public void disConnect(Connection connect) {
+		
+		try {
+			if(connect !=null)connect.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// 其他数据库不需要这个方法 oracle和db2需要
