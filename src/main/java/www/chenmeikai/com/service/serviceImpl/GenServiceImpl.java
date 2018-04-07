@@ -96,7 +96,7 @@ public class GenServiceImpl implements GenService {
 					String name = StringUtil.convertAttributeName(columnName);
 					// 属性类型
 					String typeName = rs.getString("TYPE_NAME");
-					String type = StringUtil.changeDbType(typeName);
+					String type = StringUtil.changeToJavaType(typeName);
 					// 注释
 					String remarks = rs.getString("REMARKS");
 					if (remarks == null || remarks.equals("")) {
@@ -241,7 +241,8 @@ public class GenServiceImpl implements GenService {
 					String name = StringUtil.convertAttributeName(columnName);
 					// 属性类型
 					String typeName = rs.getString("TYPE_NAME");
-					String type = StringUtil.changeDbType(typeName);
+					typeName=StringUtil.changeToDbType(typeName);
+					String type = StringUtil.changeToJavaType(typeName);
 					// 注释
 					String remarks = rs.getString("REMARKS");
 					if (remarks == null || remarks.equals("")) {

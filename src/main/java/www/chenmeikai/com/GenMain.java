@@ -24,7 +24,7 @@ public class GenMain {
 	public static void main(String[] args) {
 
 		String driver = "com.mysql.jdbc.Driver";
-		String url = "jdbc:mysql://120.79.35.34:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+		String url = "jdbc:mysql://120.79.35.34:3306/huisheng?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 		String userName = "root";
 		String password = "chenmeikai2018";
 		String tableName = "city";

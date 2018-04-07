@@ -147,7 +147,7 @@ public class StringUtil {
      * @param dbType
      * @return java類型
      */
-    public static String changeDbType(String dbType) {  
+    public static String changeToJavaType(String dbType) {  
         dbType = dbType.toUpperCase();  
         switch(dbType){  
             case "VARCHAR":  
@@ -166,16 +166,57 @@ public class StringUtil {
                 return "Integer";  
             case "BIGINT":  
                 return "Long";  
-            case "DATETIME":  
-            case "TIMESTAMP":  
             case "DOUBLE":  
                 return "Double";  
             case "FLOAT":  
             	return "Float";  
+            case "DATETIME":  
+            case "TIMESTAMP":  
             case "DATE":  
             	return "Date";  
             default:  
                 return "String";  
+        }  
+    }  
+    
+    
+    
+    public static String changeToDbType(String sqlType) {  
+    	sqlType = sqlType.toUpperCase();  
+        switch(sqlType){  
+            case "VARCHAR":  
+            case "VARCHAR2":  
+            case "CHAR": 
+            case "LONGTEXT":
+            case "TINYTEXT":
+            case "TEXT":
+                return "VARCHAR";  
+            case "NUMBER":  
+            case "DECIMAL":  
+            case "DECIMAL UNSIGNED":  
+                return "DECIMAL";  
+            case "INT":  
+            case "INT UNSIGNED":  
+            case "SMALLINT":  
+            case "SMALLINT UNSIGNED":  
+            case "TINYINT":  
+            case "TINYINT UNSIGNED":  
+            case "INTEGER":  
+                return "INTEGER";  
+            case "BIGINT":  
+            case "BIGINT UNSIGNED":  
+                return "BIGINT";  
+            case "DOUBLE":  
+                return "DOUBLE";  
+            case "FLOAT":  
+            	return "FLOAT";  
+            case "DATE":
+            case "DATETIME":
+            	return "DATE"; 
+            case "TIMESTAMP":  
+            	return "TIMESTAMP";  
+            default:  
+                return "VARCHAR";  
         }  
     }  
     
