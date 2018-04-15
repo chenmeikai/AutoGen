@@ -43,7 +43,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	 * @param entity
 	 * @return
 	 */
-	public List<?> selectList(Object obj){
+	public List<T> selectList(Object obj){
 	    return baseMapper.selectList(obj);
 	}
 	
@@ -61,7 +61,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	 * 批量保存
 	 * @param list
 	 */
-	public int batchSave(List<?> list){
+	public int batchSave(List<T> list){
 	   return baseMapper.batchSave(list);
 	}
 
@@ -79,7 +79,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	 * @param list
 	 * @return
 	 */
-	public int batchUpdate(List<?> list){
+	public int batchUpdate(List<T> list){
 	   return baseMapper.batchUpdate(list);
 	}
 
@@ -96,7 +96,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	 * @param list
 	 * @return
 	 */
-	public int delList(List<?> list){
+	public int delList(List<T> list){
 	   return baseMapper.delList(list);
 	}
 

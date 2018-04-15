@@ -47,23 +47,24 @@
   </select>
   
   <sql id="sql_save_columns">
-    insert into ${entity.table}(
+    insert into ${entity.table}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
       <#list entity.attributes as attribute>
       <#if attribute_index!=0>
-      <if test="null != ${attribute.name}">${attribute.column}</if>
+         <if test="null != ${attribute.name}">${attribute.column},</if>
       </#if>
       </#list>
-	) values
+	</trim>
   </sql>
   
   <sql id="sql_save_values">
-    (
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
   <#list entity.attributes as attribute>
     <#if attribute_index != 0>
-     <if test="null != ${attribute.name}"> ${"#{"+attribute.name+"}"}</if>
+     <if test="null != ${attribute.name}"> ${"#{"+attribute.name+"}"},</if>
     </#if>
   </#list>
-	)
+	</trim>
   </sql>
   
   <insert id="save" keyProperty="${entity.attributes[0].column}" useGeneratedKeys="true">

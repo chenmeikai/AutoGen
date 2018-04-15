@@ -162,6 +162,7 @@ public class StringUtil {
                 return "BigDecimal";  
             case "INT":  
             case "SMALLINT":  
+            case "TINYINT":  
             case "INTEGER":  
                 return "Integer";  
             case "BIGINT":  

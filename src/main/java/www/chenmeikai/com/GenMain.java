@@ -27,7 +27,6 @@ public class GenMain {
 		String url = "jdbc:mysql://120.79.35.34:3306/huisheng?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 		String userName = "root";
 		String password = "chenmeikai2018";
-		String tableName = "city";
 
 		GenService genService = new GenServiceImpl();
 		Connection conn = genService.getConnect(driver, url, userName, password);
