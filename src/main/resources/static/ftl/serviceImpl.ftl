@@ -16,7 +16,6 @@ public class ${serviceImplName}ServiceImpl extends BaseServiceImpl<${serviceImpl
     @Autowired
 	private ${serviceImplName}Mapper ${middleName}Mapper;
 	
-	@Autowired
 	public void setMapper() {
 		super.setMapper(${middleName}Mapper);
 	}

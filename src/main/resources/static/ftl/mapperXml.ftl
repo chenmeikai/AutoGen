@@ -42,6 +42,10 @@
     select <include refid="sql_columns" /> from ${entity.table} <include refid="sql_where" />
   </select>
   
+  <select id="count" resultType="int">
+    select count(*) from ${entity.table} <include refid="sql_where" />
+  </select>
+  
   <select id="selectPage" resultMap="BaseResultMap">
     select <include refid="sql_columns" /> from ${entity.table} <include refid="sql_where" /> limit ${"#"+"{page.startRow}"},${"#"+"{page.pageSize}"}
   </select>
@@ -78,12 +82,14 @@
   </insert>
   
   <sql id="sql_update">
-    update ${entity.table} set ${entity.attributes[0].column} = ${"#{"+entity.attributes[0].name+"}"}
+    update ${entity.table} set 
+    <trim prefix="" suffix=""  suffixOverrides=",">
     <#list entity.attributes as attribute>
     <#if attribute_index !=0>
-     <if test="null != ${attribute.name}">, ${attribute.column} = ${"#{"+attribute.name+"}"}</if>
+     <if test="null != ${attribute.name}">${attribute.column} = ${"#{"+attribute.name+"}"},</if>
     </#if>
    </#list>
+   </trim>
 	where ${entity.attributes[0].column} = ${"#{"+entity.attributes[0].name+"}"}
   </sql>
   
@@ -96,6 +102,10 @@
 	  <include refid="sql_update" />
 	</foreach>
   </update>
+  
+  <delete id="delById">
+    delete from ${entity.table}  where ${entity.attributes[0].column} = ${"#{"+entity.attributes[0].name+"}"}
+  </delete>
   
   <delete id="delArray">
     delete from ${entity.table} where ${entity.attributes[0].column} in

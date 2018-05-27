@@ -161,9 +161,13 @@ public class StringUtil {
             case "DECIMAL":  
                 return "BigDecimal";  
             case "INT":  
+            case "INT UNSIGNED":  
+            case "SMALLINT UNSIGNED":  
             case "SMALLINT":  
             case "TINYINT":  
+            case "TINYINT UNSIGNED":  
             case "INTEGER":  
+            case "INTEGER UNSIGNED":  
                 return "Integer";  
             case "BIGINT":  
                 return "Long";  
