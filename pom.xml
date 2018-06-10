@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>www.chenmeikai.com</groupId>
-	<artifactId>freemarker</artifactId>
+	<artifactId>AutoCode</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>freemarker</name>
+	<name>AutoCode</name>
 	<description>auto freemarker engine</description>
 
 	<parent>
